@@ -6,14 +6,14 @@ export const protectedRoute = async (req, res, next) => {
         let token = req.cookies.jwt;
         if (! token) {
             return res.status(401).json({
-                status: "fail",
+                success: false,
                 message: "You are not logged in - No token found",
             });
         }
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if( ! decoded ){
             return res.status(401).json({
-                status: "fail",
+                success: false,
                 message: "invalid token - Invalid token",
             });
         }
@@ -24,8 +24,8 @@ export const protectedRoute = async (req, res, next) => {
     } catch (error) {
         console.error( `error in protect route` ,error);
         return res.status(500).json({       
-            status: "fail",         
-            message: "Not authorized to access this route"        
+            success: false,        
+            message: "error in auth backend"        
         })
     }
 };
