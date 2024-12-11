@@ -113,6 +113,7 @@
     "whatwg-url": "^13.0.0",
     "ws": "^8.17.1"
   },
+  "type": "module",
   "scripts": {
     "dev": "nodemon api/server.js"
   },

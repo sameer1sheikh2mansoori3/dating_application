@@ -9,6 +9,7 @@ import authRoutes from './routes/authRoutes.js'
 import messageRoutes from './routes/messageRoutes.js'
 import matchRoutes from './routes/matchRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import { connectDB } from './config/db.js';
 
 app.use(express.json())
 app.use("/api/auth" , authRoutes)
@@ -17,4 +18,5 @@ app.use("/api/matches" , matchRoutes)
 app.use("/api/messages" , messageRoutes)
 app.listen(process.env.PORT || 5000 , ()=>{
     console.log(`we are working ${process.env.PORT}`)
+    connectDB()
 })
