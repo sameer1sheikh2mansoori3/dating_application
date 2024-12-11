@@ -9,7 +9,7 @@ export const getConversations = async (req, res) => {
                 {sender : req.user._id},
                 {reciever : req.user._id}
             ]
-        })
+        }).sort({createdAt : -1})
                      
         res.status(200).json({
             success: true,
