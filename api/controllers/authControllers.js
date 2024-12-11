@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import jwt from "jsonwebtoken";
 const signToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: '7d',
@@ -26,17 +27,8 @@ export const signup = async (req, res) => {
             message: "User already exists"        
         })
     }   
-    const newUser = {
-        name,
-        email,
-        password,
-        age,
-        gender,
-        genderPreference
-    };
-    // Example API request to create a new user
-    res.status(201).json({ message: 'User created successfully', user: newUser });
-    const user = await User.create(newUser);
+
+    const user = await User.create({ name, email, password, age, gender, genderPreference });
     const token = signToken(user._id);
     res.cookie("jwt", token, {
         httpOnly: true,  // ye hhs attack rokta hai
@@ -47,6 +39,7 @@ export const signup = async (req, res) => {
     return res.status(201).json({
         success: true,
         user,
+        message: "User created successfully",
     });
 };
 export const signin = async (req, res) => {
